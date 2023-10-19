@@ -2,12 +2,12 @@
 /**
 * execute - executes the opcode
 * @stack: head linked list - stack
-* @lineNumber: line_counter
+* @lineNum: line_counter
 * @file: poiner to monty file
 * @content: line content
 * Return: no return
 */
-int execute(char *content, stack_t **stack, unsigned int lineNumber, FILE *file)
+int execute(char *content, stack_t **stack, unsigned int lineNum, FILE *file)
 {
 	instruction_t opst[] = {
 				{"push", f_push}, {"pall", f_pall}, {"pint", f_pint},
@@ -37,13 +37,13 @@ int execute(char *content, stack_t **stack, unsigned int lineNumber, FILE *file)
 	while (opst[i].opcode && op)
 	{
 		if (strcmp(op, opst[i].opcode) == 0)
-		{	opst[i].f(stack, lineNumber);
+		{	opst[i].f(stack, lineNum);
 			return (0);
 		}
 		i++;
 	}
 	if (op && opst[i].opcode == NULL)
-	{ fprintf(stderr, "L%d: unknown instruction %s\n", lineNumber, op);
+	{ fprintf(stderr, "L%d: unknown instruction %s\n", lineNum, op);
 		fclose(file);
 		free(content);
 		free_stack(*stack);
